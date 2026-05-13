@@ -20,6 +20,8 @@ const NAV_ITEMS = [
   { path: "/team", label: "Team Command", icon: Users },
   { path: "/executive", label: "Executive Analytics", icon: BarChart3 },
   { path: "/mobile", label: "Mobile Preview", icon: Smartphone },
+  { path: "/notifications", label: "Notifications", icon: Bell },
+  { path: "/settings", label: "Settings", icon: Settings },
 ];
 
 const COLORS = {
@@ -34,11 +36,16 @@ export function Layout() {
   const location = useLocation();
 
   const currentView = NAV_ITEMS.find((item) =>
-    item.exact ? location.pathname === item.path : location.pathname.startsWith(item.path)
+    item.exact
+      ? location.pathname === item.path
+      : location.pathname.startsWith(item.path),
   );
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: COLORS.ghost }}>
+    <div
+      className="flex h-screen overflow-hidden"
+      style={{ background: COLORS.ghost }}
+    >
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <div
@@ -55,25 +62,46 @@ export function Layout() {
         style={{ background: COLORS.navy }}
       >
         {/* Logo */}
-        <div className="flex items-center gap-3 px-6 py-5 border-b" style={{ borderColor: "rgba(255,255,255,0.1)" }}>
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: COLORS.mint }}>
+        <div
+          className="flex items-center gap-3 px-6 py-5 border-b"
+          style={{ borderColor: "rgba(255,255,255,0.1)" }}
+        >
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center"
+            style={{ background: COLORS.mint }}
+          >
             <Activity size={18} className="text-white" />
           </div>
+
           <div>
-            <span className="text-white font-semibold tracking-tight">WorkPulse</span>
-            <p className="text-xs" style={{ color: COLORS.mint }}>BPO Wellness Engine</p>
+            <span className="text-white font-semibold tracking-tight">
+              WorkPulse
+            </span>
+
+            <p className="text-xs" style={{ color: COLORS.mint }}>
+              BPO Wellness Engine
+            </p>
           </div>
-          <button className="ml-auto lg:hidden text-white/60 hover:text-white" onClick={() => setSidebarOpen(false)}>
+
+          <button
+            className="ml-auto lg:hidden text-white/60 hover:text-white"
+            onClick={() => setSidebarOpen(false)}
+          >
             <X size={18} />
           </button>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-          <p className="px-3 pb-2 text-xs uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>
+          {/* Dashboard Section */}
+          <p
+            className="px-3 pb-2 text-xs uppercase tracking-widest"
+            style={{ color: "rgba(255,255,255,0.3)" }}
+          >
             Dashboards
           </p>
-          {NAV_ITEMS.map((item) => (
+
+          {NAV_ITEMS.slice(0, 4).map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
@@ -81,58 +109,157 @@ export function Layout() {
               onClick={() => setSidebarOpen(false)}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 group ${
-                  isActive ? "text-white" : "text-white/60 hover:text-white hover:bg-white/5"
+                  isActive
+                    ? "text-white"
+                    : "text-white/60 hover:text-white hover:bg-white/5"
                 }`
               }
               style={({ isActive }) =>
-                isActive ? { background: COLORS.mint + "22", borderLeft: `3px solid ${COLORS.mint}` } : {}
+                isActive
+                  ? {
+                      background: COLORS.mint + "22",
+                      borderLeft: `3px solid ${COLORS.mint}`,
+                    }
+                  : {}
               }
             >
               {({ isActive }) => (
                 <>
-                  <item.icon size={16} style={{ color: isActive ? COLORS.mint : undefined }} />
+                  <item.icon
+                    size={16}
+                    style={{ color: isActive ? COLORS.mint : undefined }}
+                  />
+
                   <span className="text-sm font-medium">{item.label}</span>
-                  {isActive && <ChevronRight size={14} className="ml-auto" style={{ color: COLORS.mint }} />}
+
+                  {isActive && (
+                    <ChevronRight
+                      size={14}
+                      className="ml-auto"
+                      style={{ color: COLORS.mint }}
+                    />
+                  )}
                 </>
               )}
             </NavLink>
           ))}
 
+          {/* System Section */}
           <div className="pt-4">
-            <p className="px-3 pb-2 text-xs uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>
+            <p
+              className="px-3 pb-2 text-xs uppercase tracking-widest"
+              style={{ color: "rgba(255,255,255,0.3)" }}
+            >
               System
             </p>
-            <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/60 hover:text-white hover:bg-white/5 transition-all duration-150">
-              <Bell size={16} />
-              <span className="text-sm font-medium">Notifications</span>
-              <span className="ml-auto text-xs rounded-full px-1.5 py-0.5" style={{ background: COLORS.mint + "33", color: COLORS.mint }}>3</span>
-            </button>
-            <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/60 hover:text-white hover:bg-white/5 transition-all duration-150">
-              <Settings size={16} />
-              <span className="text-sm font-medium">Settings</span>
-            </button>
+
+            {NAV_ITEMS.slice(4).map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                onClick={() => setSidebarOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 ${
+                    isActive
+                      ? "text-white"
+                      : "text-white/60 hover:text-white hover:bg-white/5"
+                  }`
+                }
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        background: COLORS.mint + "22",
+                        borderLeft: `3px solid ${COLORS.mint}`,
+                      }
+                    : {}
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <item.icon
+                      size={16}
+                      style={{ color: isActive ? COLORS.mint : undefined }}
+                    />
+
+                    <span className="text-sm font-medium">{item.label}</span>
+
+                    {item.path === "/notifications" && (
+                      <span
+                        className="ml-auto text-xs rounded-full px-1.5 py-0.5"
+                        style={{
+                          background: COLORS.mint + "33",
+                          color: COLORS.mint,
+                        }}
+                      >
+                        3
+                      </span>
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ))}
           </div>
         </nav>
 
         {/* Wellness Status Mini Widget */}
-        <div className="mx-3 mb-3 p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.05)" }}>
+        <div
+          className="mx-3 mb-3 p-3 rounded-xl"
+          style={{ background: "rgba(255,255,255,0.05)" }}
+        >
           <div className="flex items-center gap-2 mb-2">
             <Zap size={14} style={{ color: COLORS.mint }} />
-            <span className="text-xs font-medium" style={{ color: COLORS.mint }}>Team Pulse</span>
+
+            <span
+              className="text-xs font-medium"
+              style={{ color: COLORS.mint }}
+            >
+              Team Pulse
+            </span>
           </div>
+
           <div className="space-y-1.5">
             {[
-              { label: "Overall Wellness", pct: 82, color: "#27AE60" },
-              { label: "Workload Balance", pct: 68, color: "#F39C12" },
-              { label: "SLA Compliance", pct: 94, color: "#48C9B0" },
+              {
+                label: "Overall Wellness",
+                pct: 82,
+                color: "#27AE60",
+              },
+              {
+                label: "Workload Balance",
+                pct: 68,
+                color: "#F39C12",
+              },
+              {
+                label: "SLA Compliance",
+                pct: 94,
+                color: "#48C9B0",
+              },
             ].map((item) => (
               <div key={item.label}>
                 <div className="flex justify-between mb-0.5">
-                  <span className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>{item.label}</span>
-                  <span className="text-xs font-medium text-white">{item.pct}%</span>
+                  <span
+                    className="text-xs"
+                    style={{ color: "rgba(255,255,255,0.5)" }}
+                  >
+                    {item.label}
+                  </span>
+
+                  <span className="text-xs font-medium text-white">
+                    {item.pct}%
+                  </span>
                 </div>
-                <div className="h-1 rounded-full" style={{ background: "rgba(255,255,255,0.1)" }}>
-                  <div className="h-1 rounded-full transition-all" style={{ width: `${item.pct}%`, background: item.color }} />
+
+                <div
+                  className="h-1 rounded-full"
+                  style={{ background: "rgba(255,255,255,0.1)" }}
+                >
+                  <div
+                    className="h-1 rounded-full transition-all"
+                    style={{
+                      width: `${item.pct}%`,
+                      background: item.color,
+                    }}
+                  />
                 </div>
               </div>
             ))}
@@ -140,15 +267,31 @@ export function Layout() {
         </div>
 
         {/* User Profile */}
-        <div className="px-3 pb-4 pt-2 border-t" style={{ borderColor: "rgba(255,255,255,0.1)" }}>
+        <div
+          className="px-3 pb-4 pt-2 border-t"
+          style={{ borderColor: "rgba(255,255,255,0.1)" }}
+        >
           <div className="flex items-center gap-3 px-3 py-2">
-            <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-semibold" style={{ background: COLORS.mint }}>
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-semibold"
+              style={{ background: COLORS.mint }}
+            >
               JR
             </div>
+
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">Jamie Rivera</p>
-              <p className="text-xs truncate" style={{ color: "rgba(255,255,255,0.4)" }}>Team Lead · Alpha Squad</p>
+              <p className="text-sm font-medium text-white truncate">
+                Jamie Rivera
+              </p>
+
+              <p
+                className="text-xs truncate"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                Team Lead · Alpha Squad
+              </p>
             </div>
+
             <button className="text-white/40 hover:text-white/70 transition-colors">
               <LogOut size={14} />
             </button>
@@ -158,33 +301,59 @@ export function Layout() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Top Header */}
-        <header className="flex items-center gap-4 px-6 py-4 bg-white border-b" style={{ borderColor: "#E9ECEF" }}>
+        {/* Header */}
+        <header
+          className="flex items-center gap-4 px-6 py-4 bg-white border-b"
+          style={{ borderColor: "#E9ECEF" }}
+        >
           <button
             className="lg:hidden p-1.5 rounded-lg hover:bg-gray-100 transition-colors"
             onClick={() => setSidebarOpen(true)}
           >
             <Menu size={20} style={{ color: COLORS.navy }} />
           </button>
+
           <div>
-            <h1 className="text-base font-semibold" style={{ color: COLORS.navy }}>
+            <h1
+              className="text-base font-semibold"
+              style={{ color: COLORS.navy }}
+            >
               {currentView?.label || "Dashboard"}
             </h1>
+
             <p className="text-xs text-gray-400">Sunday, May 10, 2026</p>
           </div>
+
           <div className="ml-auto flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium" style={{ background: "#E0F2F1", color: COLORS.navy }}>
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: COLORS.mint }} />
+            <div
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium"
+              style={{
+                background: "#E0F2F1",
+                color: COLORS.navy,
+              }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full animate-pulse"
+                style={{ background: COLORS.mint }}
+              />
               Live Monitoring
             </div>
-            <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
+
+            <NavLink
+              to="/notifications"
+              className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            >
               <Bell size={18} style={{ color: COLORS.navy }} />
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full" style={{ background: "#F1948A" }} />
-            </button>
+
+              <span
+                className="absolute top-1 right-1 w-2 h-2 rounded-full"
+                style={{ background: "#F1948A" }}
+              />
+            </NavLink>
           </div>
         </header>
 
-        {/* Page Content */}
+        {/* Routed Page Content */}
         <main className="flex-1 overflow-y-auto">
           <Outlet />
         </main>

@@ -62,24 +62,67 @@ const WELLNESS_PRODUCTIVITY_DATA = [
 ];
 
 const SITE_HEALTH = [
-  { name: "CRM System (Salesforce)", uptime: 99.7, latency: 42, status: "healthy" },
-  { name: "Call Routing Platform", uptime: 98.9, latency: 18, status: "healthy" },
-  { name: "VPN Gateway (US-East)", uptime: 97.2, latency: 65, status: "warning" },
-  { name: "Knowledge Base Portal", uptime: 99.9, latency: 28, status: "healthy" },
-  { name: "QA Monitoring Suite", uptime: 95.8, latency: 102, status: "critical" },
-  { name: "Workforce Mgmt (WFM)", uptime: 99.4, latency: 31, status: "healthy" },
+  {
+    name: "CRM System (Salesforce)",
+    uptime: 99.7,
+    latency: 42,
+    status: "healthy",
+  },
+  {
+    name: "Call Routing Platform",
+    uptime: 98.9,
+    latency: 18,
+    status: "healthy",
+  },
+  {
+    name: "VPN Gateway (US-East)",
+    uptime: 97.2,
+    latency: 65,
+    status: "warning",
+  },
+  {
+    name: "Knowledge Base Portal",
+    uptime: 99.9,
+    latency: 28,
+    status: "healthy",
+  },
+  {
+    name: "QA Monitoring Suite",
+    uptime: 95.8,
+    latency: 102,
+    status: "critical",
+  },
+  {
+    name: "Workforce Mgmt (WFM)",
+    uptime: 99.4,
+    latency: 31,
+    status: "healthy",
+  },
 ];
 
 const CustomTurnoverTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border rounded-xl p-3 shadow-lg" style={{ borderColor: COLORS.border }}>
-        <p className="text-xs font-semibold mb-2" style={{ color: COLORS.navy }}>{label}</p>
+      <div
+        className="bg-white border rounded-xl p-3 shadow-lg"
+        style={{ borderColor: COLORS.border }}
+      >
+        <p
+          className="text-xs font-semibold mb-2"
+          style={{ color: COLORS.navy }}
+        >
+          {label}
+        </p>
         {payload.map((p: any) => (
           <p key={p.name} className="text-xs flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full" style={{ background: p.color }} />
+            <span
+              className="w-2 h-2 rounded-full"
+              style={{ background: p.color }}
+            />
             <span className="text-gray-500">{p.name}:</span>
-            <span className="font-semibold" style={{ color: COLORS.navy }}>{p.value}%</span>
+            <span className="font-semibold" style={{ color: COLORS.navy }}>
+              {p.value}%
+            </span>
           </p>
         ))}
       </div>
@@ -91,13 +134,26 @@ const CustomTurnoverTooltip = ({ active, payload, label }: any) => {
 const CustomWellnessTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border rounded-xl p-3 shadow-lg" style={{ borderColor: COLORS.border }}>
-        <p className="text-xs font-semibold mb-2" style={{ color: COLORS.navy }}>{label}</p>
+      <div
+        className="bg-white border rounded-xl p-3 shadow-lg"
+        style={{ borderColor: COLORS.border }}
+      >
+        <p
+          className="text-xs font-semibold mb-2"
+          style={{ color: COLORS.navy }}
+        >
+          {label}
+        </p>
         {payload.map((p: any) => (
           <p key={p.name} className="text-xs flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full" style={{ background: p.color }} />
+            <span
+              className="w-2 h-2 rounded-full"
+              style={{ background: p.color }}
+            />
             <span className="text-gray-500">{p.name}:</span>
-            <span className="font-semibold" style={{ color: COLORS.navy }}>{p.value}%</span>
+            <span className="font-semibold" style={{ color: COLORS.navy }}>
+              {p.value}%
+            </span>
           </p>
         ))}
       </div>
@@ -106,32 +162,51 @@ const CustomWellnessTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-export function ExecutiveDashboard() {
-  const latestData = WELLNESS_PRODUCTIVITY_DATA[WELLNESS_PRODUCTIVITY_DATA.length - 1];
+export default function ExecutiveDashboard() {
+  const latestData =
+    WELLNESS_PRODUCTIVITY_DATA[WELLNESS_PRODUCTIVITY_DATA.length - 1];
   const latestTurnover = TURNOVER_DATA[TURNOVER_DATA.length - 1];
   const totalSavings = TURNOVER_DATA.reduce((sum, d) => sum + d.savings, 0);
 
   return (
-    <div className="p-6 space-y-6" style={{ background: COLORS.ghost, minHeight: "100%" }}>
+    <div
+      className="p-6 space-y-6"
+      style={{ background: COLORS.ghost, minHeight: "100%" }}
+    >
       {/* Executive Header */}
       <div
         className="rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4"
-        style={{ background: `linear-gradient(135deg, ${COLORS.navy} 0%, #243B55 100%)` }}
+        style={{
+          background: `linear-gradient(135deg, ${COLORS.navy} 0%, #243B55 100%)`,
+        }}
       >
         <div>
-          <h2 className="text-white font-semibold">Executive Analytics — Q2 2026</h2>
-          <p className="text-sm mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <h2 className="text-white font-semibold">
+            Executive Analytics — Q2 2026
+          </h2>
+          <p
+            className="text-sm mt-0.5"
+            style={{ color: "rgba(255,255,255,0.5)" }}
+          >
             8-month trend since WorkPulse deployment. ROI and wellness insights.
           </p>
         </div>
         <div className="sm:ml-auto flex gap-4">
           <div className="text-center">
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Total Savings</p>
-            <p className="text-xl font-bold" style={{ color: COLORS.mint }}>${(totalSavings / 1000000).toFixed(1)}M</p>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+              Total Savings
+            </p>
+            <p className="text-xl font-bold" style={{ color: COLORS.mint }}>
+              ${(totalSavings / 1000000).toFixed(1)}M
+            </p>
           </div>
           <div className="text-center">
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>ROI</p>
-            <p className="text-xl font-bold" style={{ color: COLORS.mint }}>4.7x</p>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+              ROI
+            </p>
+            <p className="text-xl font-bold" style={{ color: COLORS.mint }}>
+              4.7x
+            </p>
           </div>
         </div>
       </div>
@@ -172,15 +247,27 @@ export function ExecutiveDashboard() {
             positive: true,
           },
         ].map((kpi) => (
-          <div key={kpi.label} className="bg-white rounded-xl p-4 border" style={{ borderColor: COLORS.border }}>
+          <div
+            key={kpi.label}
+            className="bg-white rounded-xl p-4 border"
+            style={{ borderColor: COLORS.border }}
+          >
             <div className="flex items-center justify-between mb-2">
               <p className="text-xs text-gray-500">{kpi.label}</p>
-              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: kpi.color + "18" }}>
+              <div
+                className="w-7 h-7 rounded-lg flex items-center justify-center"
+                style={{ background: kpi.color + "18" }}
+              >
                 <kpi.icon size={14} style={{ color: kpi.color }} />
               </div>
             </div>
-            <p className="text-2xl font-bold" style={{ color: COLORS.navy }}>{kpi.value}</p>
-            <p className="text-xs mt-0.5 flex items-center gap-1" style={{ color: kpi.color }}>
+            <p className="text-2xl font-bold" style={{ color: COLORS.navy }}>
+              {kpi.value}
+            </p>
+            <p
+              className="text-xs mt-0.5 flex items-center gap-1"
+              style={{ color: kpi.color }}
+            >
               <TrendingUp size={10} />
               {kpi.change}
             </p>
@@ -191,10 +278,18 @@ export function ExecutiveDashboard() {
       {/* Charts Row */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Turnover Prediction */}
-        <div className="bg-white rounded-xl border p-5" style={{ borderColor: COLORS.border }}>
+        <div
+          className="bg-white rounded-xl border p-5"
+          style={{ borderColor: COLORS.border }}
+        >
           <div className="flex items-center justify-between mb-1">
-            <h3 className="font-semibold" style={{ color: COLORS.navy }}>Turnover Prediction Model</h3>
-            <div className="flex items-center gap-1 text-xs px-2 py-1 rounded-full" style={{ background: COLORS.teal, color: COLORS.navy }}>
+            <h3 className="font-semibold" style={{ color: COLORS.navy }}>
+              Turnover Prediction Model
+            </h3>
+            <div
+              className="flex items-center gap-1 text-xs px-2 py-1 rounded-full"
+              style={{ background: COLORS.teal, color: COLORS.navy }}
+            >
               <Zap size={10} />
               AI-Powered
             </div>
@@ -204,14 +299,29 @@ export function ExecutiveDashboard() {
           </p>
 
           <ResponsiveContainer width="100%" height={220}>
-            <ComposedChart data={TURNOVER_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+            <ComposedChart
+              data={TURNOVER_DATA}
+              margin={{ top: 5, right: 10, left: -20, bottom: 0 }}
+            >
               <CartesianGrid strokeDasharray="3 3" stroke={COLORS.border} />
-              <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} domain={[4, 11]} />
+              <XAxis
+                dataKey="month"
+                tick={{ fontSize: 11, fill: "#94A3B8" }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <YAxis
+                tick={{ fontSize: 11, fill: "#94A3B8" }}
+                axisLine={false}
+                tickLine={false}
+                domain={[4, 11]}
+              />
               <Tooltip content={<CustomTurnoverTooltip />} />
               <Legend
                 wrapperStyle={{ fontSize: "11px", paddingTop: "8px" }}
-                formatter={(value) => <span style={{ color: "#64748B" }}>{value}</span>}
+                formatter={(value) => (
+                  <span style={{ color: "#64748B" }}>{value}</span>
+                )}
               />
               <Area
                 type="monotone"
@@ -234,36 +344,77 @@ export function ExecutiveDashboard() {
             </ComposedChart>
           </ResponsiveContainer>
 
-          <div className="flex gap-3 mt-3 pt-3 border-t" style={{ borderColor: COLORS.border }}>
-            <div className="flex-1 p-2 rounded-lg text-center" style={{ background: COLORS.green + "15" }}>
-              <p className="text-xs font-semibold" style={{ color: COLORS.green }}>47% Reduction</p>
+          <div
+            className="flex gap-3 mt-3 pt-3 border-t"
+            style={{ borderColor: COLORS.border }}
+          >
+            <div
+              className="flex-1 p-2 rounded-lg text-center"
+              style={{ background: COLORS.green + "15" }}
+            >
+              <p
+                className="text-xs font-semibold"
+                style={{ color: COLORS.green }}
+              >
+                47% Reduction
+              </p>
               <p className="text-xs text-gray-400">Turnover Rate</p>
             </div>
-            <div className="flex-1 p-2 rounded-lg text-center" style={{ background: COLORS.mint + "15" }}>
-              <p className="text-xs font-semibold" style={{ color: COLORS.mint }}>$188K</p>
+            <div
+              className="flex-1 p-2 rounded-lg text-center"
+              style={{ background: COLORS.mint + "15" }}
+            >
+              <p
+                className="text-xs font-semibold"
+                style={{ color: COLORS.mint }}
+              >
+                $188K
+              </p>
               <p className="text-xs text-gray-400">Monthly Savings</p>
             </div>
-            <div className="flex-1 p-2 rounded-lg text-center" style={{ background: COLORS.amber + "15" }}>
-              <p className="text-xs font-semibold" style={{ color: COLORS.amber }}>89 Days</p>
+            <div
+              className="flex-1 p-2 rounded-lg text-center"
+              style={{ background: COLORS.amber + "15" }}
+            >
+              <p
+                className="text-xs font-semibold"
+                style={{ color: COLORS.amber }}
+              >
+                89 Days
+              </p>
               <p className="text-xs text-gray-400">Payback Period</p>
             </div>
           </div>
         </div>
 
         {/* Wellness vs Productivity */}
-        <div className="bg-white rounded-xl border p-5" style={{ borderColor: COLORS.border }}>
+        <div
+          className="bg-white rounded-xl border p-5"
+          style={{ borderColor: COLORS.border }}
+        >
           <div className="flex items-center justify-between mb-1">
-            <h3 className="font-semibold" style={{ color: COLORS.navy }}>Wellness ↔ Productivity Correlation</h3>
+            <h3 className="font-semibold" style={{ color: COLORS.navy }}>
+              Wellness ↔ Productivity Correlation
+            </h3>
             <BarChart3 size={16} className="text-gray-400" />
           </div>
           <p className="text-xs text-gray-400 mb-4">
-            As wellness scores rise, SLA compliance and CSAT improve in lock-step
+            As wellness scores rise, SLA compliance and CSAT improve in
+            lock-step
           </p>
 
           <ResponsiveContainer width="100%" height={220}>
-            <LineChart data={WELLNESS_PRODUCTIVITY_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+            <LineChart
+              data={WELLNESS_PRODUCTIVITY_DATA}
+              margin={{ top: 5, right: 10, left: -20, bottom: 0 }}
+            >
               <CartesianGrid strokeDasharray="3 3" stroke={COLORS.border} />
-              <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#94A3B8" }} axisLine={false} tickLine={false} />
+              <XAxis
+                dataKey="month"
+                tick={{ fontSize: 11, fill: "#94A3B8" }}
+                axisLine={false}
+                tickLine={false}
+              />
               <YAxis
                 yAxisId="wellness"
                 orientation="left"
@@ -283,7 +434,9 @@ export function ExecutiveDashboard() {
               <Tooltip content={<CustomWellnessTooltip />} />
               <Legend
                 wrapperStyle={{ fontSize: "11px", paddingTop: "8px" }}
-                formatter={(value) => <span style={{ color: "#64748B" }}>{value}</span>}
+                formatter={(value) => (
+                  <span style={{ color: "#64748B" }}>{value}</span>
+                )}
               />
               <Line
                 yAxisId="wellness"
@@ -316,27 +469,48 @@ export function ExecutiveDashboard() {
             </LineChart>
           </ResponsiveContainer>
 
-          <div className="mt-3 pt-3 border-t" style={{ borderColor: COLORS.border }}>
-            <p className="text-xs font-semibold mb-2" style={{ color: COLORS.navy }}>
-              Correlation: <span style={{ color: COLORS.mint }}>r = 0.97 (Very Strong)</span>
+          <div
+            className="mt-3 pt-3 border-t"
+            style={{ borderColor: COLORS.border }}
+          >
+            <p
+              className="text-xs font-semibold mb-2"
+              style={{ color: COLORS.navy }}
+            >
+              Correlation:{" "}
+              <span style={{ color: COLORS.mint }}>r = 0.97 (Very Strong)</span>
             </p>
             <p className="text-xs text-gray-400">
-              For every 10-point improvement in team wellness, SLA compliance increases by ~5.8 percentage points.
+              For every 10-point improvement in team wellness, SLA compliance
+              increases by ~5.8 percentage points.
             </p>
           </div>
         </div>
       </div>
 
       {/* System Health Monitor */}
-      <div className="bg-white rounded-xl border p-5" style={{ borderColor: COLORS.border }}>
+      <div
+        className="bg-white rounded-xl border p-5"
+        style={{ borderColor: COLORS.border }}
+      >
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="font-semibold" style={{ color: COLORS.navy }}>System Health Monitor</h3>
-            <p className="text-xs text-gray-400">Real-time infrastructure status · Refreshed every 60s</p>
+            <h3 className="font-semibold" style={{ color: COLORS.navy }}>
+              System Health Monitor
+            </h3>
+            <p className="text-xs text-gray-400">
+              Real-time infrastructure status · Refreshed every 60s
+            </p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full" style={{ background: COLORS.green + "18", color: COLORS.green }}>
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: COLORS.green }} />
+            <div
+              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full"
+              style={{ background: COLORS.green + "18", color: COLORS.green }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full animate-pulse"
+                style={{ background: COLORS.green }}
+              />
               5/6 Systems Healthy
             </div>
             <button className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
@@ -347,20 +521,41 @@ export function ExecutiveDashboard() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {SITE_HEALTH.map((sys) => {
-            const statusColor = sys.status === "healthy" ? COLORS.green : sys.status === "warning" ? COLORS.amber : COLORS.coral;
-            const StatusIcon = sys.status === "healthy" ? CheckCircle2 : sys.status === "warning" ? AlertCircle : AlertCircle;
+            const statusColor =
+              sys.status === "healthy"
+                ? COLORS.green
+                : sys.status === "warning"
+                  ? COLORS.amber
+                  : COLORS.coral;
+            const StatusIcon =
+              sys.status === "healthy"
+                ? CheckCircle2
+                : sys.status === "warning"
+                  ? AlertCircle
+                  : AlertCircle;
 
             return (
               <div
                 key={sys.name}
                 className="flex items-center gap-3 p-3.5 rounded-xl border"
-                style={{ borderColor: statusColor + "40", background: statusColor + "08" }}
+                style={{
+                  borderColor: statusColor + "40",
+                  background: statusColor + "08",
+                }}
               >
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: statusColor + "20" }}>
+                <div
+                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: statusColor + "20" }}
+                >
                   <Server size={15} style={{ color: statusColor }} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-medium truncate" style={{ color: COLORS.navy }}>{sys.name}</p>
+                  <p
+                    className="text-xs font-medium truncate"
+                    style={{ color: COLORS.navy }}
+                  >
+                    {sys.name}
+                  </p>
                   <div className="flex items-center gap-3 mt-0.5">
                     <span className="text-xs text-gray-400 flex items-center gap-1">
                       <Activity size={9} />
@@ -379,8 +574,16 @@ export function ExecutiveDashboard() {
         </div>
 
         {/* Network Uptime Graph */}
-        <div className="mt-4 pt-4 border-t" style={{ borderColor: COLORS.border }}>
-          <p className="text-xs font-medium mb-3" style={{ color: COLORS.navy }}>Overall Network Uptime (Last 24h)</p>
+        <div
+          className="mt-4 pt-4 border-t"
+          style={{ borderColor: COLORS.border }}
+        >
+          <p
+            className="text-xs font-medium mb-3"
+            style={{ color: COLORS.navy }}
+          >
+            Overall Network Uptime (Last 24h)
+          </p>
           <div className="flex gap-1 h-8">
             {Array.from({ length: 48 }).map((_, i) => {
               const isDown = [12, 13, 38].includes(i);
@@ -390,8 +593,16 @@ export function ExecutiveDashboard() {
                   key={i}
                   className="flex-1 rounded-sm"
                   style={{
-                    background: isDown ? COLORS.coral : isWarning ? COLORS.amber : COLORS.mint,
-                    opacity: isDown ? 1 : isWarning ? 0.8 : 0.7 + Math.random() * 0.3,
+                    background: isDown
+                      ? COLORS.coral
+                      : isWarning
+                        ? COLORS.amber
+                        : COLORS.mint,
+                    opacity: isDown
+                      ? 1
+                      : isWarning
+                        ? 0.8
+                        : 0.7 + Math.random() * 0.3,
                   }}
                   title={`${Math.floor(i / 2)}:${i % 2 === 0 ? "00" : "30"} — ${isDown ? "Outage" : isWarning ? "Degraded" : "Healthy"}`}
                 />
@@ -408,20 +619,63 @@ export function ExecutiveDashboard() {
         </div>
 
         {/* Incident History */}
-        <div className="mt-4 pt-4 border-t" style={{ borderColor: COLORS.border }}>
-          <p className="text-xs font-medium mb-2" style={{ color: COLORS.navy }}>Recent Incidents</p>
+        <div
+          className="mt-4 pt-4 border-t"
+          style={{ borderColor: COLORS.border }}
+        >
+          <p
+            className="text-xs font-medium mb-2"
+            style={{ color: COLORS.navy }}
+          >
+            Recent Incidents
+          </p>
           <div className="space-y-2">
             {[
-              { time: "06:12 AM", system: "VPN Gateway", desc: "Elevated latency detected (65ms vs 20ms baseline)", type: "warning" },
-              { time: "Yesterday 11:34 PM", system: "QA Monitoring Suite", desc: "Service degradation — partial outage (14 min)", type: "critical" },
-              { time: "May 8 2:15 PM", system: "CRM System", desc: "Scheduled maintenance completed — all systems normal", type: "resolved" },
+              {
+                time: "06:12 AM",
+                system: "VPN Gateway",
+                desc: "Elevated latency detected (65ms vs 20ms baseline)",
+                type: "warning",
+              },
+              {
+                time: "Yesterday 11:34 PM",
+                system: "QA Monitoring Suite",
+                desc: "Service degradation — partial outage (14 min)",
+                type: "critical",
+              },
+              {
+                time: "May 8 2:15 PM",
+                system: "CRM System",
+                desc: "Scheduled maintenance completed — all systems normal",
+                type: "resolved",
+              },
             ].map((incident, i) => {
-              const color = incident.type === "critical" ? COLORS.coral : incident.type === "warning" ? COLORS.amber : COLORS.green;
+              const color =
+                incident.type === "critical"
+                  ? COLORS.coral
+                  : incident.type === "warning"
+                    ? COLORS.amber
+                    : COLORS.green;
               return (
-                <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg" style={{ background: color + "10" }}>
-                  <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: color }} />
+                <div
+                  key={i}
+                  className="flex items-start gap-3 p-2.5 rounded-lg"
+                  style={{ background: color + "10" }}
+                >
+                  <div
+                    className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
+                    style={{ background: color }}
+                  />
                   <div>
-                    <p className="text-xs font-medium" style={{ color: COLORS.navy }}>{incident.system} <span className="font-normal text-gray-400">· {incident.time}</span></p>
+                    <p
+                      className="text-xs font-medium"
+                      style={{ color: COLORS.navy }}
+                    >
+                      {incident.system}{" "}
+                      <span className="font-normal text-gray-400">
+                        · {incident.time}
+                      </span>
+                    </p>
                     <p className="text-xs text-gray-500">{incident.desc}</p>
                   </div>
                 </div>
@@ -432,12 +686,19 @@ export function ExecutiveDashboard() {
       </div>
 
       {/* ROI Summary */}
-      <div className="rounded-2xl p-5" style={{ background: `linear-gradient(135deg, ${COLORS.navy} 0%, #1a3a52 100%)` }}>
+      <div
+        className="rounded-2xl p-5"
+        style={{
+          background: `linear-gradient(135deg, ${COLORS.navy} 0%, #1a3a52 100%)`,
+        }}
+      >
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <DollarSign size={16} style={{ color: COLORS.mint }} />
-              <p className="font-semibold text-white">Business Impact Summary</p>
+              <p className="font-semibold text-white">
+                Business Impact Summary
+              </p>
             </div>
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
               Since WorkPulse deployment 8 months ago
@@ -451,8 +712,15 @@ export function ExecutiveDashboard() {
               { label: "CSAT Lift", value: "+13pp", color: COLORS.coral },
             ].map((item) => (
               <div key={item.label} className="text-center">
-                <p className="text-xl font-bold" style={{ color: item.color }}>{item.value}</p>
-                <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{item.label}</p>
+                <p className="text-xl font-bold" style={{ color: item.color }}>
+                  {item.value}
+                </p>
+                <p
+                  className="text-xs"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                >
+                  {item.label}
+                </p>
               </div>
             ))}
           </div>

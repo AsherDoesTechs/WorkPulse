@@ -89,7 +89,7 @@ function CircularProgress({ pct, label, sublabel, color }: { pct: number; label:
   );
 }
 
-export function AgentDashboard() {
+export default function AgentDashboard() {
   const [showModal, setShowModal] = useState(true);
   const [mood, setMood] = useState(3);
   const [energy, setEnergy] = useState<"low" | "medium" | "high" | null>(null);
